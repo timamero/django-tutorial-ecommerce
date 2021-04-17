@@ -1,2 +1,4 @@
 venv/
+htmlcov/
 secrets.py
+*db.sqlite3

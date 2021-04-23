@@ -1,4 +1,5 @@
 venv/
 htmlcov/
+.coverage
 secrets.py
 *db.sqlite3

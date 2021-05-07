@@ -1,6 +1,11 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+
+
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(is_active=True)
 
 
 class Category(models.Model):
@@ -10,8 +15,8 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'categories'
 
-    # def get_absolute_url(self):
-    #     return reverse('store:category_list', args=[self.slug])
+    def get_absolute_url(self):
+        return reverse('store:category_list', args=[self.slug])
 
     def __str__(self):
         return self.name
@@ -31,14 +36,14 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     objects = models.Manager()
-    # products = ProductManager()
+    products = ProductManager()
 
     class Meta:
         verbose_name_plural = 'Products'
         ordering = ('-created',)
 
-    # def get_absolute_url(self):
-    #     return reverse('store:product_detail', args=[self.slug])
+    def get_absolute_url(self):
+        return reverse('store:product_detail', args=[self.slug])
 
     def __str__(self):
         return self.title
